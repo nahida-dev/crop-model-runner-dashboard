@@ -1,3 +1,7 @@
+![Backend CI](https://github.com/nahida-dev/crop-model-runner-dashboard/actions/workflows/backend-ci.yml/badge.svg)
+![Frontend CI](https://github.com/nahida-dev/crop-model-runner-dashboard/actions/workflows/frontend-ci.yml/badge.svg)
+
+
 # 🌾 Model Runner Dashboard
 
 An end-to-end **Model Runner Dashboard** prototype for internal decision intelligence workflows.
