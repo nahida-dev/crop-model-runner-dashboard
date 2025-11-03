@@ -62,6 +62,7 @@ cd ..
 uvicorn main:app --reload
 ```
 ➡️ Runs at: http://localhost:8000
+
 ➡️ API Docs: http://localhost:8000/docs
 
 ### 2️⃣ Frontend
@@ -74,41 +75,42 @@ npm run dev
 
 The frontend automatically proxies API calls to the backend.
 
-🧩 Supporting Data Scripts (under /backend/scripts)
+## 🧩 Supporting Data Scripts (under /backend/scripts)
 
 Two helper scripts are provided to prepare and refresh datasets used by the models.
 
-1️⃣ fetch_usda_yield.py
+### 1️⃣ fetch_usda_yield.py
 
-Purpose: Fetches real USDA yield data from the [USDA QuickStats API](https://quickstats.nass.usda.gov/).
+#### Purpose: 
+Fetches real USDA yield data from the [USDA QuickStats API](https://quickstats.nass.usda.gov/).
 
-Output: Saves a cleaned dataset to:
+#### Output: 
+Saves a cleaned dataset to:
 ```bash
 /backend/data/yield_data.csv
 ```
  
-Usage: 
+#### Usage: 
 ```bash
 python backend/scripts/fetch_usda_yield.py
 ```
 
 This script uses your USDA API key to retrieve actual yield data (e.g., corn yield in bushels/acre) for multiple Midwest states and years.
 
+### 2️⃣ generate_water_risk_data.py
 
-2️⃣ generate_water_risk_data.py
-
-Purpose: Generates a synthetic water risk dataset by extending the USDA yield data with irrigation cost and drought index parameters.
-Input:
+#### Purpose: 
+Generates a synthetic water risk dataset by extending the USDA yield data with irrigation cost and drought index parameters.
+#### Input:
 ```bash
 /backend/data/yield_data.csv
 ```
-
-Output: Saves a synthetic dataset to:
+#### Output: 
+Saves a synthetic dataset to:
 ```bash
 /backend/data/water_risk_data.csv
 ```
-
-Usage:
+#### Usage:
 ```bash
 python backend/scripts/generate_water_risk_data.py
 ```
