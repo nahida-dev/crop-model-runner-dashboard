@@ -19,19 +19,17 @@ class ModelInfo(SQLModel, table=True):
 
 
 class Run(SQLModel, table=True):
-    __tablename__: ClassVar[str] = "run"
+    __tablename__: ClassVar[str] = "runs"  # <<— IMPORTANT: must be "runs"
     model_config: ClassVar[ConfigDict] = ConfigDict(protected_namespaces=())
 
     id: Optional[int] = Field(default=None, primary_key=True)
 
-    # If want a hard FK constraint, swap to:
-    # model_id: str = Field(sa_column=Column(sa.String, sa.ForeignKey("models.model_id"), index=True))
+    # If you want a hard FK, use: sa_column=Column(sa.String, sa.ForeignKey("models.model_id"), index=True)
     model_id: str = Field(index=True)
 
     user_id: str = Field(index=True)
-    status: str = Field(index=True)  # "queued" | "preprocessing" | "computing" | "postprocessing" | "succeeded" | "failed"
+    status: str = Field(index=True)  # "queued" | "preprocessing" | ...
 
-    # request params as JSON
     params_json: Dict[str, Any] = Field(
         default_factory=dict,
         sa_column=Column(sa.JSON, nullable=False),
@@ -45,10 +43,9 @@ class RunResult(SQLModel, table=True):
     __tablename__: ClassVar[str] = "run_results"
     model_config: ClassVar[ConfigDict] = ConfigDict(protected_namespaces=())
 
-    # 1:1: PK == FK to runs.id
+    # 1:1 PK == FK to runs.id (this MUST reference "runs.id" to match Run.__tablename__)
     run_id: int = Field(primary_key=True, foreign_key="runs.id")
 
-    # results as JSON (native dict/list in code)
     summary_json: Dict[str, Any] = Field(
         default_factory=dict,
         sa_column=Column(sa.JSON, nullable=False),
