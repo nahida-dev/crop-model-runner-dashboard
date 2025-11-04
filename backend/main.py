@@ -119,28 +119,6 @@ async def submit_run(
     return RunCreatedResponse(run_id=run_id)
 
 
-'''
-@app.post("/api/runs", response_model=RunCreatedResponse)
-async def submit_run(
-    req: RunRequest,
-    current_user: str = Depends(get_current_user)
-):
-    params = {
-        "region": req.region,
-        "year": req.year,
-        "parameter_set": req.parameter_set,
-    }
-    run_id = create_run(
-        model_id=req.model_id,
-        user_id=current_user,
-        params=params,
-    )
-    asyncio.create_task(
-        execute_model_async(run_id, req.model_id, params)
-    )
-    return RunCreatedResponse(run_id=run_id)
-
-'''
 @app.get("/api/runs")
 def list_runs(current_user: str = Depends(get_current_user)):
     runs = get_runs_for_user(current_user)
@@ -182,9 +160,8 @@ def get_results(run_id: int, current_user: str = Depends(get_current_user)):
 
     rr = get_run_result(run_id)
     if rr is None:
-        # Results not persisted yet
+        # Results not persisted yet; return empty shape the UI can handle
         return {"summaryMetrics": {}, "table": []}
 
-    summary = json.loads(rr.summary_metrics or "{}")
-    table   = json.loads(rr.result_table or "[]")
-    return {"summaryMetrics": summary, "table": table}
+    # JSON fields come back as dict/list already
+    return {"summaryMetrics": rr.summary_json, "table": rr.table_json}

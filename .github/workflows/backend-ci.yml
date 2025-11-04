@@ -22,4 +22,4 @@ jobs:
       - name: Run backend tests (or syntax check)
         run: |
           cd backend
-          pytest -q || echo "No tests yet - backend build ok"
+          pytest -q
