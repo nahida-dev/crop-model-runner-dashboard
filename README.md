@@ -54,7 +54,7 @@ cd backend
 python -m venv venv
 
 # Activate it 
-.\backend\venv\Scripts\Activate.ps1
+venv\Scripts\Activate.ps1
 
 # Install dependencies
 pip install -r requirements.txt
@@ -63,7 +63,7 @@ pip install -r requirements.txt
 cd ..
 
 # Run FastAPI server
-uvicorn main:app --reload
+uvicorn backend.main:app --reload --reload-dir backend
 ```
 ➡️ Runs at: http://localhost:8000
 
