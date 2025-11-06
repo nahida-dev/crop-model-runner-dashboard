@@ -67,7 +67,9 @@ uvicorn backend.main:app --reload --reload-dir backend
 ```
 ➡️ Runs at: http://localhost:8000
 
-➡️ API Docs: http://localhost:8000/docs
+➡️ Try out API calls live: http://localhost:8000/docs
+
+➡️ Clean, read-only documentation view: http://localhost:8000/redoc
 
 ### 2️⃣ Frontend
 ```bash
